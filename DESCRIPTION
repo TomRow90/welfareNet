@@ -1,0 +1,25 @@
+Package: welfareNet
+Title: Estimates networks for animal behaviour and welfare data
+Version: 0.1.0
+Authors@R: 
+    person("Tom", "Rowland", , "trowland@Lincoln.ac.uk", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-8420-4526"))
+Description: This package is mostly a wrapper around other packages to ease network analyses for applied researchers.
+    Specifically, it contains functions to estimate networks (the main one being a network of partial distance correlations), 
+    to identify possible node redundancies by use of a simple function that estimates zero-order correlations,  
+    to compare networks with a permutation test (network moderation analysis), and performs network intervention analysis. 
+    It also contains a very basic plotting function. 
+Imports:
+    corpcor (>= 1.6.10),
+    pbapply,
+    qgraph,
+    huge,
+    brainGraph,
+    igraph (>= 2.0.3),
+    NetworkToolbox (>= 1.4.2),
+    energy,
+    cdcsis
+License: use_gpl3_license()
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
