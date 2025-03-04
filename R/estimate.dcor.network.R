@@ -1,8 +1,8 @@
-#' Estimate a zero order dependency network
+#' Estimate a zero order dependency network from distance correlations
 #'
 #' This function takes data and estimates the zero order distance correlation network
 #' It returns the saturated dcor network (used if network moderation analysis performed)
-#' as well as the 'selected' network by thresholding at FDR < 0.1.
+#' as well as the 'selected' network by thresholding at FDR < 0.1 (user can change this setting).
 #' Missing data is handled using pairwise complete observations.
 #'
 #' @param data data as matrix or data frame
@@ -15,7 +15,7 @@
 #' @return saturated.net = The saturated dcor network
 #' @return selected.net = The thresholded network if select = "sig" (or saturated network if select = "saturated")
 #' @return p.vals = p value matrix if thresholding is selected
-#' @return edge.set or edge.signs = edge list with estimates and P values
+#' @return edge.set = edge list with estimates and P values
 #'
 #' @export
 

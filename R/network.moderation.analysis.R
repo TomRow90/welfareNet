@@ -7,8 +7,8 @@
 #'
 #' @param data1 the dataset as matrix or data frame for group 1
 #' @param data2 the dataset as matrix or data frame for group 2
-#' @param net1 the estimate.network object of group 1 from the estimate.dcor.network function
-#' @param net2 the estimated.network object of group 2 from the estimate.dcor.network function
+#' @param net1 the estimate.dcor.network object of group 1
+#' @param net2 the estimated.dcor.network object of group 2
 #' @param permutations the number of permutations to perform. Default is 1000.
 #'
 #' @return dissimilarity.results = network.dissimilarity estimates, difference, P and S values
@@ -36,7 +36,11 @@ network.moderation.analysis <- function(data1, data2, net1, net2, permutations) 
   nodes <- ncol(data1)
   edges <- nodes * (nodes - 1) / 2
 
-  #calculate emperical topological descriptors
+  #get empirical networks
+  net1 <- net1$saturated.net
+  net2 <- net2$saturated.net
+
+  #calculate empirical topological descriptors
   emperical.frob.norm <- sF(net1, net2, nodes)
 
   emperical.weighted.density.diff <- weighted.density(net1) - weighted.density(net2)

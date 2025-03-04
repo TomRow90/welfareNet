@@ -10,7 +10,7 @@
 #' @param directed is the network directed or not
 #'
 #' @details
-#' this is a function from (cite) added to this package for convenience to be used
+#' this is a function from https://osf.io/preprints/psyarxiv/4j3hf_v1 added to this package for convenience to be used
 #' in simulation studies
 #'
 #' @export
@@ -247,7 +247,7 @@ compare.sim.networks <- function(true, est, metric = NULL, directed = FALSE){
 
 
 
-#' Generate GGM function. From (cite). Used for simulation studies.
+#' Generate GGM function. From (bootnet: https://github.com/SachaEpskamp/bootnet/tree/master). Used for simulation studies.
 #'
 #' @param Nvar number of nodes
 #' @param p rewiring probability
@@ -321,7 +321,7 @@ genGGM <- function(
 
 
 
-#' simulate data from a given GGM
+#' simulate data from a given GGM (again taken from bootnet: https://github.com/SachaEpskamp/bootnet/tree/master)
 #'
 #' @param trueNet partial correlation matrix
 #' @param sampleSize sample size

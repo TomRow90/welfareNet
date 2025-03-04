@@ -2,7 +2,7 @@
 % Please edit documentation in R/simulation functions.R
 \name{genGGM}
 \alias{genGGM}
-\title{Generate GGM function. From (cite). Used for simulation studies.}
+\title{Generate GGM function. From (bootnet: https://github.com/SachaEpskamp/bootnet/tree/master). Used for simulation studies.}
 \usage{
 genGGM(
   Nvar,
@@ -36,5 +36,5 @@ genGGM(
 partial correlation matrix
 }
 \description{
-Generate GGM function. From (cite). Used for simulation studies.
+Generate GGM function. From (bootnet: https://github.com/SachaEpskamp/bootnet/tree/master). Used for simulation studies.
 }

@@ -19,6 +19,6 @@ compare.sim.networks(true, est, metric = NULL, directed = FALSE)
 This function computes various performance measures to be used in simulation studies
 }
 \details{
-this is a function from (cite) added to this package for convenience to be used
+this is a function from https://osf.io/preprints/psyarxiv/4j3hf_v1 added to this package for convenience to be used
 in simulation studies
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/simulation functions.R
 \name{sim.data}
 \alias{sim.data}
-\title{simulate data from a given GGM}
+\title{simulate data from a given GGM (again taken from bootnet: https://github.com/SachaEpskamp/bootnet/tree/master)}
 \usage{
 sim.data(trueNet, sampleSize)
 }
@@ -15,5 +15,5 @@ sim.data(trueNet, sampleSize)
 data as matrix
 }
 \description{
-simulate data from a given GGM
+simulate data from a given GGM (again taken from bootnet: https://github.com/SachaEpskamp/bootnet/tree/master)
 }

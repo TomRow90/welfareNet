@@ -11,9 +11,9 @@ network.moderation.analysis(data1, data2, net1, net2, permutations)
 
 \item{data2}{the dataset as matrix or data frame for group 2}
 
-\item{net1}{the estimate.network object of group 1 from the estimate.dcor.network function}
+\item{net1}{the estimate.dcor.network object of group 1}
 
-\item{net2}{the estimated.network object of group 2 from the estimate.dcor.network function}
+\item{net2}{the estimated.dcor.network object of group 2}
 
 \item{permutations}{the number of permutations to perform. Default is 1000.}
 }

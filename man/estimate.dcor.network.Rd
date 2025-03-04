@@ -2,7 +2,7 @@
 % Please edit documentation in R/estimate.dcor.network.R
 \name{estimate.dcor.network}
 \alias{estimate.dcor.network}
-\title{Estimate a zero order dependency network}
+\title{Estimate a zero order dependency network from distance correlations}
 \usage{
 estimate.dcor.network(
   data,
@@ -33,11 +33,11 @@ selected.net = The thresholded network if select = "sig" (or saturated network i
 
 p.vals = p value matrix if thresholding is selected
 
-edge.set or edge.signs = edge list with estimates and P values
+edge.set = edge list with estimates and P values
 }
 \description{
 This function takes data and estimates the zero order distance correlation network
 It returns the saturated dcor network (used if network moderation analysis performed)
-as well as the 'selected' network by thresholding at FDR < 0.1.
+as well as the 'selected' network by thresholding at FDR < 0.1 (user can change this setting).
 Missing data is handled using pairwise complete observations.
 }

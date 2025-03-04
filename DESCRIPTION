@@ -5,10 +5,8 @@ Authors@R:
     person("Tom", "Rowland", , "trowland@Lincoln.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-8420-4526"))
 Description: This package is mostly a wrapper around other packages to ease network analyses for applied researchers.
-    Specifically, it contains functions to estimate networks (the main one being a network of partial distance correlations), 
-    to identify possible node redundancies by use of a simple function that estimates zero-order correlations,  
-    to compare networks with a permutation test (network moderation analysis), and performs network intervention analysis. 
-    It also contains a very basic plotting function. 
+    Specifically, it contains functions to estimate dependency networks, and to compare networks with a permutation test 
+    (network moderation analysis), and to perform network intervention analysis. 
 Imports:
     corpcor (>= 1.6.10),
     pbapply,

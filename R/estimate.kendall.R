@@ -14,7 +14,7 @@
 #' @export
 
 
-estimate.kendall <- function(data, select="sig", alpha=0.05, threshold=0.95) {
+estimate.kendall.network <- function(data, select="sig", alpha=0.05, threshold=0.95) {
 
 
   #calculate node and edge sizes
@@ -45,7 +45,7 @@ estimate.kendall <- function(data, select="sig", alpha=0.05, threshold=0.95) {
   d <- na.omit(data)
 
 
-  # estimate pdcor and P value for each edge weight in edge list
+  # estimate pcor and P value for each edge weight in edge list
   for (i in 1:nrow(edge.set)) {
 
     #get first node pair
