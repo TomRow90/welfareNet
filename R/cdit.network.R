@@ -1,4 +1,4 @@
-#' Estimate a dependency network using conditional distance independence tests
+#' Estimate a dependency network using conditional distance independence tests with multivariate control
 #'
 #' This function takes data and estimates the dependence structure using conditional
 #' distance independence tests. Missing data is removed.

@@ -21,14 +21,14 @@ compare.sim.networks <- function(true, est, metric = NULL, directed = FALSE){
   if (!is.matrix(true) | !is.matrix(est)) stop("Input must be a weight matrix")
 
   if (is.null(metric)){
-    metric <- c("sensitivity", "signed_sensitivity", "sensitivity_top50",
+    metric <- c("true_positives", "true_negatives","false_positives","false_negatives","sensitivity", "signed_sensitivity", "sensitivity_top50",
                 "sensitivity_top25", "sensitivity_top10", "specificity",
                 "precision", "precision_top50", "precision_top25",
                 "precision_top10", "jaccard_index", "correlation",
                 "correlation_abs", "correlation_true", "bias", "bias_true",
                 "centrality_Pearson_cor", "centrality_Kendall_cor",
                 "centrality_top5", "centrality_top3", "centrality_top1")
-  } else if(any(!(metric %in% c("sensitivity", "signed_sensitivity", "sensitivity_top50",
+  } else if(any(!(metric %in% c("true_positives", "true_negatives","false_positives","false_negatives","sensitivity", "signed_sensitivity", "sensitivity_top50",
                                 "sensitivity_top25", "sensitivity_top10", "specificity",
                                 "precision", "precision_top50", "precision_top25",
                                 "precision_top10", "jaccard_index",
@@ -36,7 +36,7 @@ compare.sim.networks <- function(true, est, metric = NULL, directed = FALSE){
                                 "bias", "bias_true", "centrality_Pearson_cor",
                                 "centrality_Kendall_cor", "centrality_top5",
                                 "centrality_top3", "centrality_top1")))) {
-    stop("metric invalid; needs to be 'sensitivity', 'signed_sensitivity', 'sensitivity_top50',
+    stop("metric invalid; needs to be 'true_positives', 'true_negatives','false_positives','false_negatives','sensitivity', 'signed_sensitivity', 'sensitivity_top50',
     'sensitivity_top25', 'sensitivity_top10', 'specificity', 'precision', 'precision_top50',
     'precision_top25', 'precision_top10', 'jaccard_index',
          'correlation', 'correlation_abs', 'correlation_true', 'bias', 'bias_true',
@@ -73,6 +73,26 @@ compare.sim.networks <- function(true, est, metric = NULL, directed = FALSE){
 
   # False Neg:
   falseNeg <- sum(est == 0 & true != 0)
+
+  #true pos
+  if("true_positives" %in% metric){
+    out$true_positives <- truePos
+  }
+
+  #true neg
+  if("true_negatives" %in% metric){
+    out$true_negatives<- trueNeg
+  }
+
+  #False pos
+  if("false_positives" %in% metric){
+    out$false_positives <- falsePos
+  }
+
+  #False neg
+  if("false_negatives" %in% metric){
+    out$false_negatives <- falseNeg
+  }
 
   # Sensitivity:
   if("sensitivity" %in% metric){
@@ -357,6 +377,39 @@ sim.data <- function(trueNet, sampleSize) {
   data <- mvtnorm::rmvnorm(sampleSize, sigma = Sigma)
 
 }
+
+
+
+
+#' find approximate pcor given an adjacency matrix and parameter range (again taken from bootnet: https://github.com/SachaEpskamp/bootnet/tree/master)
+#'
+#' @param adj the signed adjacency matrix
+#' @param parRange the range of absolute partial correlations to start from (actual pcors will likely be lower than this)
+#'
+#' @return true.net = the partial correlation matrix
+#' @export
+
+adj.to.pcor <- function(adj, parRange=c(0.5,1)) {
+
+  trueKappa <- adj
+
+  # Make edges adj# Make edges negative and add weights:
+  trueKappa[upper.tri(trueKappa)] <- trueKappa[upper.tri(trueKappa)] *
+    runif(sum(upper.tri(trueKappa)), min(parRange ),max(parRange ))
+
+  # Symmetrize:
+  trueKappa[lower.tri(trueKappa)] <- t(trueKappa)[lower.tri(trueKappa)]
+
+  # Make pos def:
+  diag(trueKappa) <- 1.5 * rowSums(abs(trueKappa))
+  diag(trueKappa) <- ifelse(diag(trueKappa)==0,1,diag(trueKappa))
+  trueKappa <- trueKappa/diag(trueKappa)[row(trueKappa)]
+  trueKappa <- (trueKappa + t(trueKappa)) / 2
+
+  return(true.net = trueKappa)
+
+}
+
 
 
 

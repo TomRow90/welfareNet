@@ -1,6 +1,6 @@
-#' Perform network moderation analysis of zero-order networks with a permutation test
+#' Perform network comparison analysis of zero-order networks with a permutation test
 #'
-#' This function performs network moderation analysis. That is, it performs a permutation test to compare two networks
+#' This function performs network comparison analysis. That is, it performs a permutation test to compare two networks
 #' on various global, nodal, and edge level characteristics. It uses zero-order distance correlations.
 #'
 #'
@@ -30,7 +30,7 @@
 #' @export
 
 
-network.moderation.analysis <- function(data1, data2, net1, net2, permutations) {
+network.comparison.analysis <- function(data1, data2, net1, net2, permutations) {
 
   #get node and edge number
   nodes <- ncol(data1)

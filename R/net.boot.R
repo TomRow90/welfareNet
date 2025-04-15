@@ -20,27 +20,13 @@ net.boot <- function(data, net, nBoots, stability = TRUE) {
   nodes <- ncol(data)
   edges <- nodes * (nodes - 1) / 2
 
-  #initialise some arguements
-  if(stability == TRUE) {
-
-    select <- net$select
-    dcor.permutations <- net$dcor.perms
-    alpha <- net$alpha
-    sign <- net$sign
-
-  } else {
-
-    select <- "saturated"
-    dcor.permutations <- NULL
-    alpha <- NULL
-    sign <- net$sign
-
-  }
-
+  #initialise some arguments
+  select <- net$structure
+  alpha <- net$alpha
+  num.boots <- net$num.boots
 
   #define estimated network
-  saturated.net <- net$saturated.net
-  selected.net <- net$selected.net
+  selected.net <- net$structure
 
 
   boot.fun <- function(data, indices, select, dcor.permutations, alpha, sign) {

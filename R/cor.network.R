@@ -1,4 +1,4 @@
-#' Estimate a kendall based dependency network
+#' Estimate a zero order correlation network (pearson, spearman, or kendall)
 #'
 #'
 #' @param data data as matrix or data frame
@@ -14,7 +14,7 @@
 #' @export
 
 
-estimate.kendall.network <- function(data, select="sig", alpha=0.05, threshold=0.95) {
+cor.network <- function(data, method = "spearman", use = "pairwise.complete.obs", select="sig", alpha=0.05) {
 
 
   #calculate node and edge sizes
@@ -39,10 +39,7 @@ estimate.kendall.network <- function(data, select="sig", alpha=0.05, threshold=0
   edge.set$edge <- pairs
 
   #check for missing data, remove and notify user
-  if(any(is.na(data))) print("full order pdcors estimated by removing missing data row wise")
-
-  #save d as new dataframe because if qp is selected then can use original data there without removing all rows
-  d <- na.omit(data)
+  if(any(is.na(data))) print("correlation network estimated using pairwise complete observations")
 
 
   # estimate pcor and P value for each edge weight in edge list
@@ -56,31 +53,17 @@ estimate.kendall.network <- function(data, select="sig", alpha=0.05, threshold=0
     v1.ind <- which(colnames(data) == v1)
     v2.ind <- which(colnames(data) == v2)
 
-    #data for node pair and high dimensional control variable
     x <- d[,v1.ind]
     y <- d[,v2.ind]
-    z <- d[,-c(v1.ind,v2.ind)]
 
+    obj <- cor(x,y, method = method, use = use)
 
-    if(select == "sig") {
-
-      pdc <- ppcor::pcor.test(x,y,z, method="kendall")
-
-      edge.set$value[i] <- pdc$estimate
-      edge.set$`P value`[i] <- pdc$p.value
-
-    } else {
-
-      pdc <- ppcor::pcor.test(x,y,z, method="kendall")
-
-      edge.set$value[i] <- pdc$estimate
-      edge.set$`P value`[i] <- NA
-
-    }
+    edge.set$value[i] <- obj$estimate
+    edge.set$`P value`[i] <- obj$p.value
 
   }
 
-  #fill in saturated pdcor network matrix
+  #fill in saturated cor network matrix
   saturated.net[lower.tri(saturated.net)] <- edge.set$value
   saturated.net[upper.tri(saturated.net)] <- t(saturated.net)[upper.tri(saturated.net)]
   dimnames(saturated.net) <- list(colnames(data), colnames(data))
@@ -88,10 +71,6 @@ estimate.kendall.network <- function(data, select="sig", alpha=0.05, threshold=0
 
   #fill in P value matrix if "sig" used
   if(select == "sig") {
-
-    #replace NA with 1 if no variability in binary node
-    ind <- which(is.na(edge.set$`P value`) == TRUE)
-    edge.set$`P value`[ind] <- 1
 
     net.p <- matrix(0, nrow=nodes, ncol=nodes)
 
@@ -113,59 +92,9 @@ estimate.kendall.network <- function(data, select="sig", alpha=0.05, threshold=0
 
   }
 
-  #if select = qp return selected network as q1 graph structure
-  if(select == "qp") {
 
-    nrr <- matrix(0, ncol = nodes, nrow = nodes)
+  #returns
 
-    # Loop through each pair of nodes (i, j)
-    for (i in 1:(nodes - 1)) {
-
-      v1 <- colnames(data)[i]
-
-      for (j in (i + 1):nodes) {
-
-        v2 <- colnames(data)[j]
-
-        # Calculate partial associations conditioned on each other node k individually
-        p.values <- rep(0, ncol(data))
-
-        for (k in 1:nodes) {
-
-          if (k != i && k != j) {
-
-            #create dataset for (p-2)*2 q1 models and remove missing data rows at this stage
-            d <- data[,c(i,j,k)]
-            d <- na.omit(d)
-
-            y <- d[,1]
-            x <- d[,2]
-            z <- d[,3]
-
-            pdc.test <- ppcor::pcor.test(y,x,z, method="kendall")
-
-            p.values[k] <- pdc.test$p.value
-
-          }
-
-        }
-
-        p.values <- p.values[-c(i,j)]
-
-        nrr[i,j] <- length(which(p.values > alpha)) / length(p.values)
-        nrr[j,i] <- nrr[i,j]
-
-      }
-
-    }
-
-    #graph structure based on nrr threshold
-    ind <- which(nrr < threshold)
-    selected.net[ind] <- 1
-
-  }
-
-  #if no sign - ignore sign section and return following
   if(select == "sig") {
 
     return(list(saturated.net = saturated.net,
@@ -183,21 +112,6 @@ estimate.kendall.network <- function(data, select="sig", alpha=0.05, threshold=0
                 selected.net = selected.net,
                 edge.set = edge.set,
                 select = select))
-  }
-
-
-
-  #if no sign and qp select also return nrr
-  if(select == "qp") {
-
-    return(list(saturated.net = saturated.net,
-                selected.net = selected.net * saturated.net,
-                structure = selected.net,
-                edge.set = edge.set,
-                nrr = nrr,
-                alpha = alpha,
-                select = select,
-                sign = sign))
   }
 
 

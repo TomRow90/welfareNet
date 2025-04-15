@@ -1,4 +1,4 @@
-#' Estimate a dependency network with distance precision network
+#' Estimate a dependency network with the distance precision matrix
 #'
 #' This function takes data and estimates the distance precision network. Missing data is removed.
 #'
@@ -12,7 +12,7 @@
 #'
 #' @export
 
-estimate.dpm <- function(data, select="k-means") {
+dpm.network <- function(data, select="k-means") {
 
 
   #calculate node and edge sizes

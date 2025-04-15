@@ -1,6 +1,4 @@
-#' Estimate a q1 graph network for network intervention analysis
-#'
-#' This function takes data which includes a binary intervention variable and estimates a q1-graph network
+#' Estimate a q1 graph network using conditional distance independence tests
 #'
 #'
 #' @param data data as matrix or data frame
@@ -17,7 +15,7 @@
 #' @export
 
 
-network.intervention.analysis <- function(data, alpha=0.1, nrr=FALSE, nrr.threshold=NULL, num.boots = 1000, chores=1) {
+qp.cdit.network <- function(data, alpha=0.1, nrr=FALSE, nrr.threshold=NULL, num.boots = 1000, chores=1) {
 
 
   nodes <- ncol(data)
@@ -110,7 +108,7 @@ network.intervention.analysis <- function(data, alpha=0.1, nrr=FALSE, nrr.thresh
 
     } else {
 
-      ifelse(any(res$`p value` > alpha), edge.set$value[i] <- 0, edge.set$value[i] <- 1)
+      ifelse(max(res$`p value`) >= alpha, edge.set$value[i] <- 0, edge.set$value[i] <- 1)
 
     }
 
@@ -139,11 +137,13 @@ network.intervention.analysis <- function(data, alpha=0.1, nrr=FALSE, nrr.thresh
 
     return(list(structure = adj,
                 nrr = nrr.m,
-                alpha = alpha))
+                alpha = alpha,
+                num.boots = num.boots))
   } else {
 
     return(list(structure = adj,
-                alpha = alpha))
+                alpha = alpha,
+                num.boots = num.boots))
   }
 
 

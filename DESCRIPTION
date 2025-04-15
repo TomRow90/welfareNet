@@ -1,5 +1,5 @@
 Package: welfareNet
-Title: Estimates networks for animal behaviour and welfare data
+Title: Estimates networks for animal behaviour and welfare data (or other discplines with mixed data)
 Version: 0.1.0
 Authors@R: 
     person("Tom", "Rowland", , "trowland@Lincoln.ac.uk", role = c("aut", "cre"),
@@ -9,6 +9,8 @@ Description: This package is mostly a wrapper around other packages to ease netw
     (network moderation analysis), and to perform network intervention analysis. 
 Imports:
     corpcor (>= 1.6.10),
+    GGMnonreg,
+    mgm,
     pbapply,
     qgraph,
     huge,

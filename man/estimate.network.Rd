@@ -2,54 +2,19 @@
 % Please edit documentation in R/estimate.network.R
 \name{estimate.network}
 \alias{estimate.network}
-\title{Estimate a dependency network}
+\title{Estimate a network structure}
 \usage{
-estimate.network(
-  data,
-  select = "sig",
-  dcor.permutations = NULL,
-  alpha = 0.05,
-  adjust = "fdr",
-  adjust.threshold = 0.1,
-  qp.threshold = 0.95,
-  zero.order = FALSE
-)
+estimate.network(estimator, ...)
 }
 \arguments{
-\item{data}{data as matrix or data frame}
+\item{estimator}{= the network estimation algorithm to use}
 
-\item{select}{method for present/absent edge selection. Can either be "saturated" for no thresholding, "sig" for significance testing (default), of "qp" for q1-graph structure estimation}
-
-\item{dcor.permutations}{if "sig" for select, how many permutations should be performed for the permutation test for each edge weight (default = 1000).}
-
-\item{alpha}{if "sig" for select, the alpha level for thresholding the edges (default = 0.05)}
-
-\item{adjust}{which method should be used for P value adjustment? default FDR using BH procedure}
-
-\item{adjust.threshold}{what threshold should be used for the adjusted P value? default is 10\% FDR}
-
-\item{qp.threshold}{if qp graph is method for edge selection, what is the threshold of the non-rejection rate to select the graph structure (default = 0.95)? The alpha level argument is used for individual q tests}
-
-\item{zero.order}{should the zero order dcor also be computed? defaults to FALSE}
+\item{...}{= the arguments specific for the estimation function selected}
 }
 \value{
-saturated.net = The saturated pdcor network
-
-selected.net = The thresholded network if select = "sig" (or saturated network if select = "saturated")
-
-p.vals = p value matrix if thresholding is selected
-
-edge.set or edge.signs = edge list with estimates and P values
-
-nrr = non-rejection rate matrix if "qp" is method of edge selection
-
-zero.order.saturated.net = saturated zero order distance correlation network
-
-zero.order.selected.net = selected zero order distance correlation network at given alpha
+structure = the selected network structure
 }
 \description{
-This function takes data and estimates the requested network.
-The default network it estimates is a partial distance correlation (pdcor) network,
-returning the saturated pdcor network as well as the 'selected' network by thresholding
-at P < 0.05. Missing data is removed.
+This function is a wrapper around the various network estimation procedures implemented in this package
+and other network analysis R packages. See details for estimation algorithms implemented.
 }

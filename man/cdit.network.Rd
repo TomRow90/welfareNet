@@ -2,7 +2,7 @@
 % Please edit documentation in R/cdit.network.R
 \name{cdit.network}
 \alias{cdit.network}
-\title{Estimate a dependency network using conditional distance independence tests}
+\title{Estimate a dependency network using conditional distance independence tests with multivariate control}
 \usage{
 cdit.network(data, boots, chores)
 }
