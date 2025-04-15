@@ -20,7 +20,7 @@
 #' @export
 
 
-estimate.dcor.network <- function(data, select="sig", dcor.permutations=NULL, alpha=0.05, adjust = "fdr", adjust.threshold = 0.1) {
+dcor.network <- function(data, select="sig", dcor.permutations=NULL, alpha=0.05, adjust = "fdr", adjust.threshold = 0.1) {
 
   #calculate node and edge sizes
   nodes <- ncol(data)

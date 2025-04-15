@@ -4,7 +4,7 @@
 \alias{estimate.network}
 \title{Estimate a network structure}
 \usage{
-estimate.network(estimator, ...)
+estimate.network(estimator, data, ...)
 }
 \arguments{
 \item{estimator}{= the network estimation algorithm to use}

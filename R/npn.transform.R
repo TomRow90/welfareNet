@@ -16,7 +16,7 @@ npn.transform <- function(data) {
 
     if(length(na.ind) > 0) {
 
-      transform <- huge::huge.npn(data[-na.ind,i])
+      transform <- huge::huge.npn(as.matrix(data[-na.ind,i]))
 
       data[-na.ind,i] <- transform
 
@@ -24,7 +24,7 @@ npn.transform <- function(data) {
 
     if(length(na.ind) == 0) {
 
-      transform <- huge::huge.npn(data[,i])
+      transform <- huge::huge.npn(as.matrix(data[,i]))
 
       data[,i] <- transform
 

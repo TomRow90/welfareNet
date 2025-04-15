@@ -11,7 +11,7 @@
 #' @export
 
 
-estimate.network <- function(estimator, ...) {
+estimate.network <- function(estimator, data, ...) {
 
   estimator.map <- list(
     dcor = welfareNet::dcor.network,
@@ -49,6 +49,6 @@ estimate.network <- function(estimator, ...) {
 
   }
 
-  do.call(estimator.map[[estimator]], data = data, list(...))
+  do.call(estimator.map[[estimator]], c(list(data = data), list(...)))
 
 }

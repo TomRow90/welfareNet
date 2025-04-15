@@ -13,7 +13,7 @@
 #'
 #' @export
 
-aracne <- function(data, alpha = 0.05, adjust="none", fdr=NULL, eps=0.15, mod="multiplicative", perms=1000) {
+dcor.aracne <- function(data, alpha = 0.05, adjust="none", fdr=NULL, eps=0.15, mod="multiplicative", perms=1000) {
 
   # Define the helper function outside the loop
   test_edge <- function(sub.net, i, j, k, eps, mod) {
